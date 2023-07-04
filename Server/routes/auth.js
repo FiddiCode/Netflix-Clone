@@ -12,16 +12,16 @@ router.post('/register', async (req,res)=>{
         email:req.body.email,
         password:CryptoJS.AES.encrypt(req.body.password ,process.env.SECRET_KEY).toString()
     });
-
+  
     try{
     const user= await newUser.save(); 
-    res.status(201).json(user);
+    res.status(201).json(user); 
     }catch(err){
         console.log(err);
         res.status(500).json(err);
     }
 }) 
-
+  
 //Login
 
 router.post('/login',async (req,res)=>{  
