@@ -17,9 +17,9 @@ mongoose.connect(process.env.MONGO_URL)
 
 //Using the Routes
 app.use(express.json());
-app.use("api/auth",authRoute);
-app.use("api/users",userRoute);
-app.use("api/movies",moviesRoute);
+app.use("/api/auth",authRoute);
+app.use("/api/users",userRoute);
+app.use("/api/movies",moviesRoute);
 
 
 app.listen(8800,()=>{
