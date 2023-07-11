@@ -9,31 +9,21 @@
 
     &.scrolled{
         background-color:var(--main-color);
-
     }
     
-}
-
 .container{
     padding: 0 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height:70px;
-}
-
-svg{
-    width: 130px;
-    height: 25px;
-}
-
-
 
 .left{
     display: flex;
     align-items: center;
 
-    img{
+    svg{
+        width: 130px;
         height: 25px;
     }
 
@@ -80,4 +70,8 @@ svg{
           }
         }
     }
+}
+
+}
+
 }
