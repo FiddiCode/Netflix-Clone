@@ -27,16 +27,16 @@ const List = () => {
         <div className="wrapper">
             <ArrowBackIosOutlined className="sliderArrow left" onClick={()=>handleClick('left')} style={{display:!isMoved && 'none'}}/>
             <div className='container' ref={listRef}>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
-             <ListItems/>
+             <ListItems index={0}/>
+             <ListItems index={1}/>
+             <ListItems index={2}/>
+             <ListItems index={3}/>
+             <ListItems index={4}/>
+             <ListItems index={5}/>
+             <ListItems index={6}/>
+             <ListItems index={7}/>
+             <ListItems index={8}/>
+             <ListItems index={9}/>
             
 
              <ArrowForwardIosOutlined className="sliderArrow right" onClick={()=>handleClick('right')}/>
