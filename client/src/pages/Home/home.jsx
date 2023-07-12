@@ -2,13 +2,13 @@ import Featured from '../../components/featured/Featured.jsx';
 import Navbar from '../../components/navbar/navbar.jsx';
 import List from '../../components/list/List.jsx';
 import './home.scss'
-const Home=()=>{
+const Home=({type})=>{
 
 return(
     <>
       <div className="home"> 
        <Navbar/>
-       <Featured type={'movies'}/>
+       <Featured type={type}/>
        <List/>
        <List/>
        <List/>
