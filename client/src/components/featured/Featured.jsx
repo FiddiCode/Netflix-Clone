@@ -1,9 +1,25 @@
-import React from 'react'
+import React  from 'react'
 import PlayArrow from '@mui/icons-material/PlayArrow';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import './featured.scss'
+import { useEffect,useState } from 'react';
+import axios from 'axios';
 
 const Featured = ({type}) => {
+    const [content,setContent]=useState({});
+
+    useEffect(()=>{
+        const getRandomContent=async()=>{
+            try{
+             const res=await axios.get(`/movies/random?type=${type}`);
+             setContent(res.data);
+            }catch(err){
+               console.log(err);
+            }
+        }
+        getRandomContent();
+
+    },[type]);
   return (
     <div className='Featured'>
        {type && (
@@ -30,13 +46,13 @@ const Featured = ({type}) => {
 
         </select>
        </div>)}
-       <img src='https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=869&q=80' alt='missing'/>
+       <img src={content.img} alt='missing'/>
   
     <div className='info'>
-        <img src='https://www.seekpng.com/png/full/391-3912218_world-war-z-world-war-z-png.png' alt=''/>
+        <img src='content.imgTitle' alt=''/>
     
         <span className='desc'>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum numquam enim consectetur sint adipisci perferendis! Esse aliquid explicabo, ullam possimus vero labore numquam nobis dolores quaerat asperiores porro unde illo.
+      {content.desc}
     </span>
      
     <div className='buttons'>

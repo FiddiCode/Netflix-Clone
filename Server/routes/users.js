@@ -3,8 +3,7 @@ import User from '../models/User.js'
 import CryptoJS from 'crypto-js'; 
 import verify  from '../verifyToken.js';
 
-const router= new express.Router();  
-
+const router= new express.Router();
 
 //Update
 router.put('/:id',verify, async (req,res)=> {

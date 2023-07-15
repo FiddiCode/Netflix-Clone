@@ -3,7 +3,7 @@ import {ArrowBackIosOutlined ,ArrowForwardIosOutlined} from '@mui/icons-material
 import ListItems from '../listItems/ListItems';
 import './list.scss'
 
-const List = () => {
+const List = ({list}) => {
   const [isMoved,setIsMoved]=useState(false);
   const [sliderNumber,setSliderNumber]=useState(0);
   const listRef=useRef();
@@ -23,24 +23,18 @@ const List = () => {
   }
   return (
     <div className='list'>
-        <span className='listTitle'>Continue to Watch</span>
+        <span className='listTitle'>{list.title}</span>
         <div className="wrapper">
             <ArrowBackIosOutlined className="sliderArrow left" onClick={()=>handleClick('left')} style={{display:!isMoved && 'none'}}/>
             <div className='container' ref={listRef}>
-             <ListItems index={0}/>
-             <ListItems index={1}/>
-             <ListItems index={2}/>
-             <ListItems index={3}/>
-             <ListItems index={4}/>
-             <ListItems index={5}/>
-             <ListItems index={6}/>
-             <ListItems index={7}/>
-             <ListItems index={8}/>
-             <ListItems index={9}/>
+              {list.map((item,i)=>{
+                 <ListItems index={i} item={item}/>
+              })}
             
-
+            
+             </div>
              <ArrowForwardIosOutlined className="sliderArrow right" onClick={()=>handleClick('right')}/>
-</div>
+
 </div>
 </div>
   )};

@@ -1,22 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './listItems.scss'
 import { PlayArrow, ThumbDownOffAltOutlined, ThumbUpAltOutlined,Add } from '@mui/icons-material';
 import video from './1712075980.mp4'
+import axios from 'axios';
+import { Link } from 'react-router-dom'
 
-const ListItems = ({index}) => {
+const ListItems = ({index,item}) => {
   const [isHovered,setIsHovered]=useState(false);
-
-  //  const trailer='https://vod-progressive.akamaized.net/exp=1689076303~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F203%2F16%2F401018575%2F1712075980.mp4~hmac=0a2b8297f919a84b3e9d38162b22a8c72042f7758a2b1af83b080fc332fc3a44/vimeo-prod-skyfire-std-us/01/203/16/401018575/1712075980.mp4';
+  const [movie,setMovie]=useState({});
+  useEffect(()=>{
+      const getMovie= async ()=>{
+            try{
+                   const res= await axios.get('/movies/find/'+ item, {headers:{
+                        token:
+                        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWZhNGE5MDhmODI5Y2YwMjE5MGNiZSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2ODgyODc2MzYsImV4cCI6MTY4ODI5MTIzNn0.UmPHYpihwimw0kqyj8UZb3tn14pJryU5jjmwtklCioY'
+                    }});
+                    setMovie(res.data);
+            }catch(err){
+              console.log(err);
+            }
+      }
+      getMovie();
+  },[item]);
 
   return (
+      <Link to={{pathname:'/watch',movie:movie}}>
  <div className='listItems' 
  style={{left:isHovered && index*255-50 +index*2.5 }} 
  onMouseEnter={()=>setIsHovered(true)}  
  onMouseLeave={()=>setIsHovered(false)}>
 
-      <img  src='https://th.bing.com/th/id/OIP.bwlWhMUt-oDRsjAdZ0C1VQHaEK?pid=ImgDet&rs=1'  alt='missing'/>
+      <img  src={movie.img}  alt='missing'/>
   {isHovered && (<>
-        <video src={video} autoPlay={true} loop />
+        <video src={movie.trailer} autoPlay={true} loop />
     <div className="iteminfo">
           <div className="icons">
                 <PlayArrow className='icon'/>
@@ -25,18 +41,18 @@ const ListItems = ({index}) => {
                 <ThumbDownOffAltOutlined className='icon'/>
           </div>
             <div className="itemInfoTop">
-                   <span>1hour 14min</span>
-                   <span className='limit'>+16</span>
-                   <span>1999</span>
+                   <span>{movie.duration}</span>
+                   <span className='limit'>+{movie.limit}</span>
+                   <span>{movie.year}</span>
             </div>
-            <div className='desc'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, perspiciatis. 
-                     Architecto  enim odit, recusandae non quae cum possimus numquam. Facere alias ad 
+            <div className='desc'>{movie.desc}
             </div>
-                <div className='genre'>Action</div>
+                <div className='genre'>{movie.genre}</div>
     </div>
  </>)}
 
   </div>
+  </Link>
   
   )
 }
