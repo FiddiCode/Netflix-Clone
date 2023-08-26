@@ -4,6 +4,7 @@ import List from '../../components/list/List.jsx';
 import './home.scss'
 import axios from 'axios'
 import { useState,useEffect } from 'react';
+
 const Home=({type})=>{
  const [lists,setLists]=useState([]);
  const [genre,setGenre]=useState(null);
@@ -12,11 +13,12 @@ const Home=({type})=>{
     const getRandomLists=async ()=>{
         try{
             const res=await axios.get(
-                `lists${type? "?type="+type:""}${genre ? "genre=" +genre :""}`,
+                `lists${type? "?type="+type:""}${genre ? "&genre=" +genre :""}`,
                 {headers:{
                     token:
-                    'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWZhNGE5MDhmODI5Y2YwMjE5MGNiZSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2ODgyODc2MzYsImV4cCI6MTY4ODI5MTIzNn0.UmPHYpihwimw0kqyj8UZb3tn14pJryU5jjmwtklCioY'
-                }}
+                    'bearer' +JSON.parse(localStorage.getItem("user")).accessToken,
+                },
+            }
             );
             console.log(res);
             setLists(res.data);
@@ -30,8 +32,10 @@ return(
     <>
       <div className="home"> 
        <Navbar/>
-       <Featured type={type}/>
-       <List list={lists}/>
+       <Featured type={type} setGenre={setGenre}/>
+       {lists.map((list) => (
+        <List list={list} />
+      ))}
         </div>
 
     </>

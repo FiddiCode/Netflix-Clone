@@ -8,13 +8,14 @@ import { Link } from 'react-router-dom'
 const ListItems = ({index,item}) => {
   const [isHovered,setIsHovered]=useState(false);
   const [movie,setMovie]=useState({});
+
   useEffect(()=>{
       const getMovie= async ()=>{
             try{
                    const res= await axios.get('/movies/find/'+ item, {headers:{
                         token:
-                        'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWZhNGE5MDhmODI5Y2YwMjE5MGNiZSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2ODgyODc2MzYsImV4cCI6MTY4ODI5MTIzNn0.UmPHYpihwimw0kqyj8UZb3tn14pJryU5jjmwtklCioY'
-                    }});
+                        'bearer'+JSON.parse(localStorage.getItem("user")).accessToken,},
+                      });
                     setMovie(res.data);
             }catch(err){
               console.log(err);
@@ -30,7 +31,7 @@ const ListItems = ({index,item}) => {
  onMouseEnter={()=>setIsHovered(true)}  
  onMouseLeave={()=>setIsHovered(false)}>
 
-      <img  src={movie.img}  alt='missing'/>
+      <img  src={movie?.img}  alt='missing'/>
   {isHovered && (<>
         <video src={movie.trailer} autoPlay={true} loop />
     <div className="iteminfo">
@@ -48,8 +49,9 @@ const ListItems = ({index,item}) => {
             <div className='desc'>{movie.desc}
             </div>
                 <div className='genre'>{movie.genre}</div>
-    </div>
- </>)}
+      </div>
+   </>
+ )}
 
   </div>
   </Link>

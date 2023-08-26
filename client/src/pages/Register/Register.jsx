@@ -1,18 +1,31 @@
-import React, { useState,useRef } from 'react'
+import React, { useState,useRef,useHistory } from 'react'
 import './register.scss'
+import axios from 'axios';
 
 const Register = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
+    const [username, setUsername] = useState("");
+    const history = useHistory();
+  
 
     const emailRef=useRef();
     const passwordRef=useRef();
+    const usernameRef = useRef();
 
     const handleStart=()=>{
         setEmail(emailRef.current.value)
     };
-    const handleFinish=()=>{
-        setPassword(passwordRef.current.value)
+    const handleFinish= async (e)=>{
+        e.preventDefault();
+        setPassword(passwordRef.current.value);
+        setUsername(usernameRef.current.value);
+
+        try {
+            await axios.post("auth/register", { email,username, password });
+            history.push("/login");
+          } catch (err) {}
+
     };
   return (
     <div className='register'>

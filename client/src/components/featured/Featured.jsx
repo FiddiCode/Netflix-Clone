@@ -5,27 +5,33 @@ import './featured.scss'
 import { useEffect,useState } from 'react';
 import axios from 'axios';
 
-const Featured = ({type}) => {
+const Featured = ({type,setGenre}) => {
     const [content,setContent]=useState({});
 
     useEffect(()=>{
         const getRandomContent=async()=>{
             try{
-             const res=await axios.get(`/movies/random?type=${type}`);
-             setContent(res.data);
-            }catch(err){
+             const res=await axios.get(`/movies/random?type=${type}`, {
+                headers: {
+                  token:
+                    "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+                },
+              });
+             setContent(res.data[0]);
+            }catch(err){  
                console.log(err);
             }
         }
         getRandomContent();
 
     },[type]);
+
   return (
     <div className='Featured'>
        {type && (
        <div className="category">
         <span>{type==='movies'?'Movies':'Series'}</span>
-        <select name='genre' id='genre'>
+        <select name='genre' id='genre' onChange={(e) => setGenre(e.target.value)}>
             <option selected disabled>Genre</option>
             <option value="action">Action</option>
             <option value="adventure">Adventure</option>
@@ -43,9 +49,9 @@ const Featured = ({type}) => {
             <option value="sci-fi">Sci-Fi</option>
             <option value="thriller">Thriller</option>
             <option value="western">Western</option>
-
         </select>
-       </div>)}
+       </div>
+       )}
        <img src={content.img} alt='missing'/>
   
     <div className='info'>
@@ -62,16 +68,12 @@ const Featured = ({type}) => {
         </button>
         <button className='more'>
             <InfoOutlined/>
-            <span>More</span>
+            <span>Info</span>
         </button>
     </div>
-
-    </div>
- 
- 
-
-    </div>
-  )
+   </div>
+ </div>
+  );
 }
 
 export default Featured;
