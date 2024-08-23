@@ -8,8 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 export default function Home() {
-  const MONTHS = useMemo(
-    () => [
+  const MONTHS = useMemo( () => [
       "Jan",
       "Feb",
       "Mar",
