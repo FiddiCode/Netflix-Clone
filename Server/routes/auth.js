@@ -3,7 +3,7 @@ import User from '../models/User.js'
 import CryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
 
- const router= new express.Router();
+const router= new express.Router();
 
 //REGISTER
 router.post('/register', async (req,res)=>{
