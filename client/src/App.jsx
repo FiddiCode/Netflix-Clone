@@ -1,6 +1,6 @@
 import Home from './pages/Home/home'
 import './App.scss'
-import Watch from './pages/Watch/Watch';
+ import Watch from './pages/Watch/Watch';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import {BrowserRouter as Router,Route, Routes, Navigate} from 'react-router-dom';
