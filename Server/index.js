@@ -7,7 +7,7 @@ app.use(cors());
  
  import mongoose from 'mongoose'
  import dotenv from 'dotenv'  
-import authRoute from './routes/auth.js'
+ import authRoute from './routes/auth.js'
 import userRoute from './routes/users.js'
 import moviesRoute from './routes/movies.js'
 import listsRoute from './routes/lists.js'
