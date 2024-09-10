@@ -4,7 +4,7 @@ const app =express();
 import cors from'cors';
 app.use(cors());
 
-
+ 
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'  
 import authRoute from './routes/auth.js'
