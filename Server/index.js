@@ -5,7 +5,7 @@ import cors from'cors';
 app.use(cors());
 
  
-import mongoose from 'mongoose'
+ import mongoose from 'mongoose'
 import dotenv from 'dotenv'  
 import authRoute from './routes/auth.js'
 import userRoute from './routes/users.js'
